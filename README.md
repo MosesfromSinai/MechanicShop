@@ -13,8 +13,10 @@ This project implements a database for a mechanics shop that tracks customers, c
 - **Schema:** SQL
 
 ## Project Structure
-- `create_tables.sql` — Database schema (CREATE TABLE statements)
+- `create-tables.sql` — Database schema (CREATE TABLE statements)
 - `MechanicShop.java` — JDBC client application
+- `/images` - ER Diagram
+- `.gitignore` - Added file with example Java code from Lab 6 template
 - `data/` — CSV files with dummy data
 
 ## Setup
