@@ -36,3 +36,4 @@ This project implements a database for a mechanics shop that tracks customers, c
 
 ## Authors
 Moses Avila
+Adolfo Magallanes
