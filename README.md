@@ -5,7 +5,7 @@ A database system for managing a mechanic shop for CS 166 (Database Management S
 This project implements a database for a mechanics shop that tracks customers, cars, mechanics, service requests, and billing information.
 
 ## ER Diagram 
-![ER Diagram](ER_Diagram_CS166Final.png)
+![ER Diagram](images/ER_Diagram_CS166Final.png)
 
 ## Tech Stack
 - **Database:** PostgreSQL
