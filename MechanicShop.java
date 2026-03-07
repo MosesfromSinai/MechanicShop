@@ -524,6 +524,7 @@ public class MechanicShop {
          System.out.println("Please enter a valid number.");
       }catch(Exception e){
          System.err.println(e.getMessage());
+         
       }
    }//end InitiateServiceRequest
 
