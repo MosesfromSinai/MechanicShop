@@ -392,28 +392,49 @@ public class MechanicShop {
 
    public static void InitiateServiceRequest(MechanicShop esql){
       try{
-         // search for customer by last name
          System.out.print("\tEnter customer last name: ");
          String lname = in.readLine();
 
+         // find customers with that last name
          String query = "SELECT id, fname, lname, phone FROM Customer WHERE lname = '" + lname + "'";
          Statement stmt = esql._connection.createStatement();
          ResultSet rs = stmt.executeQuery(query);
 
-         // store matching customers
-         java.util.List<Integer> custIds = new java.util.ArrayList<Integer>();
-         java.util.List<String> custNames = new java.util.ArrayList<String>();
+         // print matches and count them
+         int count = 0;
          while(rs.next()){
-            custIds.add(rs.getInt(1));
-            custNames.add(rs.getString(2).trim() + " " + rs.getString(3).trim() + " | Phone: " + rs.getString(4).trim());
+            System.out.println("\tID: " + rs.getInt(1) + " | " + rs.getString(2).trim() + " " + rs.getString(3).trim() + " | Phone: " + rs.getString(4).trim());
+            count++;
          }
          rs.close();
          stmt.close();
 
          int customerId;
 
-         if(custIds.size() == 0){
-            System.out.println("No customer found with last name:" + lname);
+         if(count == 0){
+            System.out.println("No customer found with last name: " + lname);
+            System.out.print("\tWould you like to add a new customer? (y/n): ");
+            String choice = in.readLine();
+            if(choice.equalsIgnoreCase("y")){
+               AddCustomer(esql);
+            }
+            return;
+         }else{
+            System.out.print("\tEnter the customer ID from above: ");
+            customerId = Integer.parseInt(in.readLine());
+
+            // verify the ID is valid
+            String checkQuery = "SELECT id FROM Customer WHERE id = " + customerId;
+            stmt = esql._connection.createStatement();
+            rs = stmt.executeQuery(checkQuery);
+            if(!rs.next()){
+               System.out.println("Invalid customer ID.");
+               rs.close();
+               stmt.close();
+               return;
+            }
+            rs.close();
+            stmt.close();
          }
    }//end InitiateServiceRequest
 
