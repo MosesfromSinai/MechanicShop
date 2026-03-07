@@ -436,6 +436,39 @@ public class MechanicShop {
             rs.close();
             stmt.close();
          }
+
+         // list cars for this customer
+         String carQuery = "SELECT vin, year, make, model FROM Car WHERE customer_id = " + customerId;
+         stmt = esql._connection.createStatement();
+         rs = stmt.executeQuery(carQuery);
+
+         int carCount = 0;
+         while(rs.next()){
+            System.out.println("\t" + rs.getString(1).trim() + " | " + rs.getInt(2) + " " + rs.getString(3).trim() + " " + rs.getString(4).trim());
+            carCount++;
+         }
+         rs.close();
+         stmt.close();
+
+         String carVin;
+
+         if(carCount == 0){
+            System.out.println("No cars found for this customer.");
+            System.out.print("\tWould you like to add a new car? (y/n): ");
+            String choice = in.readLine();
+            if(choice.equalsIgnoreCase("y")){
+               AddCar(esql);
+            }
+            return;
+         }else{
+            System.out.print("\tEnter the VIN from above (or 'new' to add a car): ");
+            String vinInput = in.readLine();
+            if(vinInput.equalsIgnoreCase("new")){
+               AddCar(esql);
+               return;
+            }
+            carVin = vinInput;
+         }
    }//end InitiateServiceRequest
 
    public static void CloseServiceRequest(MechanicShop esql){
