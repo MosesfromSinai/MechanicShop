@@ -330,7 +330,64 @@ public class MechanicShop {
    }//end AddMechanic
 
    public static void AddCar(MechanicShop esql){
-      //TODO
+      try{
+         System.out.print("\tEnter VIN: ");
+         String vin = in.readLine();
+         if(vin.length() <= 0 || vin.length() > 40){
+            System.out.println("Error: VIN must be between 1 and 40 characters.");
+            return;
+         }
+
+         System.out.print("\tEnter year: ");
+         String yearInput = in.readLine();
+         int year = Integer.parseInt(yearInput);
+         if(year < 1900 || year > 2026){
+            System.out.println("Error: Year must be between 1900 and 2026.");
+            return;
+         }
+
+         System.out.print("\tEnter make: ");
+         String make = in.readLine();
+         if(make.length() <= 0 || make.length() > 40){
+            System.out.println("Error: Make must be between 1 and 40 characters.");
+            return;
+         }
+
+         System.out.print("\tEnter model: ");
+         String model = in.readLine();
+         if(model.length() <= 0 || model.length() > 40){
+            System.out.println("Error: Model must be between 1 and 40 characters.");
+            return;
+         }
+
+         System.out.print("\tEnter customer ID (owner): ");
+         String custInput = in.readLine();
+         int customerId = Integer.parseInt(custInput);
+
+         // verify customer exists
+         String checkQuery = "SELECT id FROM Customer WHERE id = " + customerId;
+         Statement stmt = esql._connection.createStatement();
+         ResultSet rs = stmt.executeQuery(checkQuery);
+         if(!rs.next()){
+            System.out.println("Error: Customer with ID " + customerId + " does not exist.");
+            rs.close();
+            stmt.close();
+            return;
+         }
+         rs.close();
+         stmt.close();
+
+         String insertQuery = "INSERT INTO Car (vin, year, make, model, customer_id) VALUES ('" +
+            vin + "', " + year + ", '" + make + "', '" + model + "', " + customerId + ")";
+
+         esql.executeUpdate(insertQuery);
+         System.out.println("Car successfully added! (VIN: " + vin + ")");
+
+      }catch(NumberFormatException e){
+         System.out.println("Error: Year and Customer ID must be valid integers.");
+      }catch(Exception e){
+         System.err.println(e.getMessage());
+      }
    }//end AddCar
 
    public static void InitiateServiceRequest(MechanicShop esql){
