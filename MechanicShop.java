@@ -1,10 +1,7 @@
-/* This is from Professors Lab 6 JAVA 
- *
- * Template JAVA User Interface
- * =============================
+/* Mechanic Shop Client Application
  *
  * Database Management Systems
- * Department of Computer Science &amp; Engineering
+ * Department of Computer Science & Engineering
  * University of California - Riverside
  *
  * Target DBMS: 'Postgres'
@@ -28,7 +25,7 @@ import java.io.InputStreamReader;
  * work with PostgreSQL JDBC drivers.
  *
  */
-public class EmbeddedSQL {
+public class MechanicShop {
 
    // reference to physical database connection.
    private Connection _connection = null;
@@ -39,15 +36,15 @@ public class EmbeddedSQL {
                                 new InputStreamReader(System.in));
 
    /**
-    * Creates a new instance of EmbeddedSQL
+    * Creates a new instance of MechanicShop
     *
-    * @param hostname the MySQL or PostgreSQL server hostname
-    * @param database the name of the database
-    * @param username the user name used to login to the database
-    * @param password the user login password
+    * @param dbname the name of the database
+    * @param dbport the port of the database
+    * @param user the user name used to login to the database
+    * @param passwd the user login password
     * @throws java.sql.SQLException when failed to make a connection.
     */
-   public EmbeddedSQL (String dbname, String dbport, String user, String passwd) throws SQLException {
+   public MechanicShop (String dbname, String dbport, String user, String passwd) throws SQLException {
 
       System.out.print("Connecting to database...");
       try{
@@ -63,4 +60,26 @@ public class EmbeddedSQL {
          System.out.println("Make sure you started postgres on this machine");
          System.exit(-1);
       }//end catch
+<<<<<<< HEAD
    }//end EmbeddedSQL
+=======
+   }//end MechanicShop
+
+   /**
+    * Method to execute an update SQL statement.  Update SQL instructions
+    * includes CREATE, INSERT, UPDATE, DELETE, and DROP.
+    *
+    * @param sql the input SQL string
+    * @throws java.sql.SQLException when update failed
+    */
+   public void executeUpdate (String sql) throws SQLException {
+      // creates a statement object
+      Statement stmt = this._connection.createStatement ();
+
+      // issues the update instruction
+      stmt.executeUpdate (sql);
+
+      // close the instruction
+      stmt.close ();
+   }//end executeUpdate
+>>>>>>> 106d34e (updated intro to customer function tailored to mechanic shop)
