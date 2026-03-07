@@ -469,6 +469,62 @@ public class MechanicShop {
             }
             carVin = vinInput;
          }
+
+         System.out.print("\tEnter date (YYYY-MM-DD): ");
+         String date = in.readLine();
+
+         System.out.print("\tEnter odometer reading: ");
+         int odometer = Integer.parseInt(in.readLine());
+         if(odometer < 0){
+            System.out.println("Odometer can't be negative.");
+            return;
+         }
+
+         System.out.print("\tEnter complaint: ");
+         String complain = in.readLine();
+         if(complain.length() <= 0){
+            System.out.println("Complaint cannot be empty.");
+            return;
+         }
+
+         // get next rid
+         String ridQuery = "SELECT MAX(rid) FROM Service_Request";
+         stmt = esql._connection.createStatement();
+         rs = stmt.executeQuery(ridQuery);
+         int newRid = 1;
+         if(rs.next()){
+            newRid = rs.getInt(1) + 1;
+         }
+         rs.close();
+         stmt.close();
+
+         System.out.print("\tEnter mechanic ID: ");
+         int mechanicId = Integer.parseInt(in.readLine());
+
+         // check if mechanic exists
+         String mechQuery = "SELECT id FROM Mechanic WHERE id = " + mechanicId;
+         stmt = esql._connection.createStatement();
+         rs = stmt.executeQuery(mechQuery);
+         if(!rs.next()){
+            System.out.println("Mechanic not found.");
+            rs.close();
+            stmt.close();
+            return;
+         }
+         rs.close();
+         stmt.close();
+
+         String insertQuery = "INSERT INTO Service_Request (rid, date, odometer, complain, car_vin, customer_id, mechanic_id) VALUES (" +
+            newRid + ", '" + date + "', " + odometer + ", '" + complain + "', '" + carVin + "', " + customerId + ", " + mechanicId + ")";
+
+         esql.executeUpdate(insertQuery);
+         System.out.println("Service request created! (RID: " + newRid + ")");
+
+      }catch(NumberFormatException e){
+         System.out.println("Please enter a valid number.");
+      }catch(Exception e){
+         System.err.println(e.getMessage());
+      }
    }//end InitiateServiceRequest
 
    public static void CloseServiceRequest(MechanicShop esql){
