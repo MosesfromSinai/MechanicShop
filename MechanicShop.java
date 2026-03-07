@@ -391,7 +391,141 @@ public class MechanicShop {
    }//end AddCar
 
    public static void InitiateServiceRequest(MechanicShop esql){
-      //TODO
+      try{
+         System.out.print("\tEnter customer last name: ");
+         String lname = in.readLine();
+
+         // find customers with that last name
+         String query = "SELECT id, fname, lname, phone FROM Customer WHERE lname = '" + lname + "'";
+         Statement stmt = esql._connection.createStatement();
+         ResultSet rs = stmt.executeQuery(query);
+
+         // print matches and count them
+         int count = 0;
+         while(rs.next()){
+            System.out.println("\tID: " + rs.getInt(1) + " | " + rs.getString(2).trim() + " " + rs.getString(3).trim() + " | Phone: " + rs.getString(4).trim());
+            count++;
+         }
+         rs.close();
+         stmt.close();
+
+         int customerId;
+
+         if(count == 0){
+            System.out.println("No customer found with last name: " + lname);
+            System.out.print("\tWould you like to add a new customer? (y/n): ");
+            String choice = in.readLine();
+            if(choice.equalsIgnoreCase("y")){
+               AddCustomer(esql);
+            }
+            return;
+         }else{
+            System.out.print("\tEnter the customer ID from above: ");
+            customerId = Integer.parseInt(in.readLine());
+
+            // verify the ID is valid
+            String checkQuery = "SELECT id FROM Customer WHERE id = " + customerId;
+            stmt = esql._connection.createStatement();
+            rs = stmt.executeQuery(checkQuery);
+            if(!rs.next()){
+               System.out.println("Invalid customer ID.");
+               rs.close();
+               stmt.close();
+               return;
+            }
+            rs.close();
+            stmt.close();
+         }
+
+         // list cars for this customer
+         String carQuery = "SELECT vin, year, make, model FROM Car WHERE customer_id = " + customerId;
+         stmt = esql._connection.createStatement();
+         rs = stmt.executeQuery(carQuery);
+
+         int carCount = 0;
+         while(rs.next()){
+            System.out.println("\t" + rs.getString(1).trim() + " | " + rs.getInt(2) + " " + rs.getString(3).trim() + " " + rs.getString(4).trim());
+            carCount++;
+         }
+         rs.close();
+         stmt.close();
+
+         String carVin;
+
+         if(carCount == 0){
+            System.out.println("No cars found for this customer.");
+            System.out.print("\tWould you like to add a new car? (y/n): ");
+            String choice = in.readLine();
+            if(choice.equalsIgnoreCase("y")){
+               AddCar(esql);
+            }
+            return;
+         }else{
+            System.out.print("\tEnter the VIN from above (or 'new' to add a car): ");
+            String vinInput = in.readLine();
+            if(vinInput.equalsIgnoreCase("new")){
+               AddCar(esql);
+               return;
+            }
+            carVin = vinInput;
+         }
+
+         System.out.print("\tEnter date (YYYY-MM-DD): ");
+         String date = in.readLine();
+
+         System.out.print("\tEnter odometer reading: ");
+         int odometer = Integer.parseInt(in.readLine());
+         if(odometer < 0){
+            System.out.println("Odometer can't be negative.");
+            return;
+         }
+
+         System.out.print("\tEnter complaint: ");
+         String complain = in.readLine();
+         if(complain.length() <= 0){
+            System.out.println("Complaint cannot be empty.");
+            return;
+         }
+
+         // get next rid
+         String ridQuery = "SELECT MAX(rid) FROM Service_Request";
+         stmt = esql._connection.createStatement();
+         rs = stmt.executeQuery(ridQuery);
+         int newRid = 1;
+         if(rs.next()){
+            newRid = rs.getInt(1) + 1;
+         }
+         rs.close();
+         stmt.close();
+
+         System.out.print("\tEnter mechanic ID: ");
+         int mechanicId = Integer.parseInt(in.readLine());
+
+         // check if mechanic exists
+         String mechQuery = "SELECT id FROM Mechanic WHERE id = " + mechanicId;
+         stmt = esql._connection.createStatement();
+         rs = stmt.executeQuery(mechQuery);
+         if(!rs.next()){
+            System.out.println("Mechanic not found.");
+            rs.close();
+            stmt.close();
+            return;
+         }
+         rs.close();
+         stmt.close();
+
+         String insertQuery = "INSERT INTO Service_Request (rid, date, odometer, complain, car_vin, customer_id, mechanic_id) VALUES (" +
+            newRid + ", '" + date + "', " + odometer + ", '" + complain + "', '" + carVin + "', " + customerId + ", " + mechanicId + ")";
+
+         esql.executeUpdate(insertQuery);
+         System.out.println("Service request created! (RID: " + newRid + ")");
+
+      }catch(NumberFormatException e){
+         System.out.println("Please enter a valid number.");
+      }catch(Exception e){
+         System.err.println(e.getMessage());
+         
+      }
    }//end InitiateServiceRequest
 
    public static void CloseServiceRequest(MechanicShop esql){
