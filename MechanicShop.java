@@ -283,7 +283,50 @@ public class MechanicShop {
    }//end AddCustomer
 
    public static void AddMechanic(MechanicShop esql){
-      //TODO
+      try{
+         String query = "SELECT MAX(id) FROM Mechanic";
+         Statement stmt = esql._connection.createStatement();
+         ResultSet rs = stmt.executeQuery(query);
+         int newId = 1;
+         if(rs.next()){
+            newId = rs.getInt(1) + 1;
+         }
+         rs.close();
+         stmt.close();
+
+         System.out.print("\tEnter first name: ");
+         String fname = in.readLine();
+         if(fname.length() <= 0 || fname.length() > 40){
+            System.out.println("Error: First name must be between 1 and 40 characters.");
+            return;
+         }
+
+         System.out.print("\tEnter last name: ");
+         String lname = in.readLine();
+         if(lname.length() <= 0 || lname.length() > 40){
+            System.out.println("Error: Last name must be between 1 and 40 characters.");
+            return;
+         }
+
+         System.out.print("\tEnter years of experience: ");
+         String expInput = in.readLine();
+         int experience = Integer.parseInt(expInput);
+         if(experience < 0){
+            System.out.println("Error: Experience must be a non-negative integer.");
+            return;
+         }
+
+         String insertQuery = "INSERT INTO Mechanic (id, fname, lname, experience) VALUES (" +
+            newId + ", '" + fname + "', '" + lname + "', " + experience + ")";
+
+         esql.executeUpdate(insertQuery);
+         System.out.println("Mechanic successfully added! (ID: " + newId + ")");
+
+      }catch(NumberFormatException e){
+         System.out.println("Error: Experience must be a valid integer.");
+      }catch(Exception e){
+         System.err.println(e.getMessage());
+      }
    }//end AddMechanic
 
    public static void AddCar(MechanicShop esql){
