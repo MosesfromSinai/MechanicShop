@@ -64,23 +64,3 @@ public class EmbeddedSQL {
          System.exit(-1);
       }//end catch
    }//end EmbeddedSQL
-
-   /**
-    * Method to execute an update SQL statement.  Update SQL instructions
-    * includes CREATE, INSERT, UPDATE, DELETE, and DROP.
-    *
-    * @param sql the input SQL string
-    * @throws java.sql.SQLException when update failed
-    */
-   public void executeUpdate (String sql) throws SQLException {
-      // creates a statement object
-      Statement stmt = this._connection.createStatement ();
-
-      // issues the update instruction
-      stmt.executeUpdate (sql);
-
-      // close the instruction
-      stmt.close ();
-   }//end executeUpdate
-
-   
