@@ -5,7 +5,7 @@ A database system for managing a mechanic shop for CS 166 (Database Management S
 This project implements a database for a mechanics shop that tracks customers, cars, mechanics, service requests, and billing information.
 
 ## ER Diagram 
-
+![ER Diagram](ER_Diagram_CS166Final.png)
 
 ## Tech Stack
 - **Database:** PostgreSQL
@@ -16,3 +16,21 @@ This project implements a database for a mechanics shop that tracks customers, c
 - `create_tables.sql` — Database schema (CREATE TABLE statements)
 - `MechanicShop.java` — JDBC client application
 - `data/` — CSV files with dummy data
+
+## Setup
+1. Create the PostgreSQL database
+2. Run `create_tables.sql` to build the schema
+3. Load dummy data from CSV files
+4. Compile and run the Java client:
+   ```bash
+   javac MechanicShop.java
+   java MechanicShop
+   ```
+
+## Features
+- Add customers, mechanics, and cars
+- Initiate and close service requests
+- Query service history, billing, and car information
+
+## Authors
+Moses Avila
