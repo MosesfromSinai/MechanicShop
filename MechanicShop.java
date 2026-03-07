@@ -391,7 +391,30 @@ public class MechanicShop {
    }//end AddCar
 
    public static void InitiateServiceRequest(MechanicShop esql){
-      //TODO
+      try{
+         // search for customer by last name
+         System.out.print("\tEnter customer last name: ");
+         String lname = in.readLine();
+
+         String query = "SELECT id, fname, lname, phone FROM Customer WHERE lname = '" + lname + "'";
+         Statement stmt = esql._connection.createStatement();
+         ResultSet rs = stmt.executeQuery(query);
+
+         // store matching customers
+         java.util.List<Integer> custIds = new java.util.ArrayList<Integer>();
+         java.util.List<String> custNames = new java.util.ArrayList<String>();
+         while(rs.next()){
+            custIds.add(rs.getInt(1));
+            custNames.add(rs.getString(2).trim() + " " + rs.getString(3).trim() + " | Phone: " + rs.getString(4).trim());
+         }
+         rs.close();
+         stmt.close();
+
+         int customerId;
+
+         if(custIds.size() == 0){
+            System.out.println("No customer found with last name:" + lname);
+         }
    }//end InitiateServiceRequest
 
    public static void CloseServiceRequest(MechanicShop esql){
