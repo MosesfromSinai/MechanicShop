@@ -60,9 +60,6 @@ public class MechanicShop {
          System.out.println("Make sure you started postgres on this machine");
          System.exit(-1);
       }//end catch
-<<<<<<< HEAD
-   }//end EmbeddedSQL
-=======
    }//end MechanicShop
 
    /**
@@ -82,4 +79,46 @@ public class MechanicShop {
       // close the instruction
       stmt.close ();
    }//end executeUpdate
->>>>>>> 106d34e (updated intro to customer function tailored to mechanic shop)
+
+   /**
+    * Method to execute an input query SQL instruction (i.e. SELECT).  This
+    * method issues the query to the DBMS and outputs the results to
+    * standard out.
+    *
+    * @param query the input query string
+    * @return the number of rows returned
+    * @throws java.sql.SQLException when failed to execute the query
+    */
+   public int executeQuery (String query) throws SQLException {
+      // creates a statement object
+      Statement stmt = this._connection.createStatement ();
+
+      // issues the query instruction
+      ResultSet rs = stmt.executeQuery (query);
+
+      /*
+       ** obtains the metadata object for the returned result set.  The metadata
+       ** contains row and column info.
+       */
+      ResultSetMetaData rsmd = rs.getMetaData ();
+      int numCol = rsmd.getColumnCount ();
+      int rowCount = 0;
+
+      // iterates through the result set and output them to standard out.
+      boolean outputHeader = true;
+      while (rs.next()){
+         if(outputHeader){
+            for(int i = 1; i <= numCol; i++){
+               System.out.print(rsmd.getColumnName(i) + "\t");
+            }
+            System.out.println();
+            outputHeader = false;
+         }
+         for (int i=1; i<=numCol; ++i)
+            System.out.print (rs.getString (i) + "\t");
+         System.out.println ();
+         ++rowCount;
+      }//end while
+      stmt.close ();
+      return rowCount;
+   }//end executeQuery
