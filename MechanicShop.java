@@ -554,7 +554,12 @@ public class MechanicShop {
 
    public static void ListCarsBefore1995Under50kMiles(MechanicShop esql){
       try{
-         String query = "SELECT DISTINCT c.make, c.model, c.year FROM Car c JOIN Service_Request sr ON c.vin = sr.car_vin WHERE c.year < 1995 AND sr.odometer < 50000";
+         String query = String query =
+   "SELECT DISTINCT C.make, C.model, C.year " +
+   "FROM Car C, Service_Request SR " +
+   "WHERE C.vin = SR.car_vin " +
+   "AND C.year < 1995 " +
+   "AND SR.odometer < 50000";
          int rowCount = esql.executeQuery(query);
          System.out.println("Total rows: " + rowCount);
       }catch(Exception e){
