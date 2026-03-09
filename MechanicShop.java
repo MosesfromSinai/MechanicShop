@@ -544,7 +544,12 @@ public class MechanicShop {
 
    public static void ListCustomersWithMoreThan20Cars(MechanicShop esql){
       try{
-         String query = "SELECT c.fname, c.lname FROM Customer c JOIN Car ca ON c.id = ca.customer_id GROUP BY c.id, c.fname, c.lname HAVING COUNT(ca.vin) > 20";
+         String query = String query =
+   "SELECT C.fname, C.lname " +
+   "FROM Customer C, Car CA " +
+   "WHERE C.id = CA.customer_id " +
+   "GROUP BY C.id, C.fname, C.lname " +
+   "HAVING COUNT(CA.vin) > 20";
          int rowCount = esql.executeQuery(query);
          System.out.println("Total rows: " + rowCount);
       }catch(Exception e){
