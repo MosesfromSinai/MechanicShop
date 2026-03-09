@@ -534,7 +534,10 @@ public class MechanicShop {
 
    public static void ListClosedRequestsUnder100(MechanicShop esql){
       try{
-         String query = "SELECT date, comment, bill FROM Service_Request WHERE close_date IS NOT NULL AND bill < 100";
+         String query = 
+   "SELECT date, comment, bill 
+   FROM Service_Request 
+   WHERE close_date IS NOT NULL AND bill < 100";
          int rowCount = esql.executeQuery(query);
          System.out.println("Total rows: " + rowCount);
       }catch (Exception e){
