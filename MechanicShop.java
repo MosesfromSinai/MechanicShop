@@ -568,7 +568,13 @@ public class MechanicShop {
 
    public static void ListCustomersByTotalBill(MechanicShop esql){
       try{
-         String query = "SELECT c.fname, c.lname, SUM(sr.bill) AS total_bill FROM Customer c JOIN Service_Request sr ON c.id = sr.customer_id WHERE sr.bill IS NOT NULL GROUP BY c.id, c.fname, c.lname ORDER BY total_bill DESC";
+         String query =
+   "SELECT C.fname, C.lname, SUM(SR.bill) AS total_bill " +
+   "FROM Customer C, Service_Request SR " +
+   "WHERE C.id = SR.customer_id " + 
+   "AND SR.bill IS NOT NULL " +
+   "GROUP BY C.id, C.fname, C.lname " +
+   "ORDER BY total_bill DESC";
          int rowCount = esql.executeQuery(query);
          System.out.println("Total rows: " + rowCount);
       }catch(Exception e){
