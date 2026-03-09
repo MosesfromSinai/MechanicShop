@@ -541,7 +541,13 @@ public class MechanicShop {
    }//end ListCustomersWithMoreThan20Cars
 
    public static void ListCarsBefore1995Under50kMiles(MechanicShop esql){
-      //TODO
+      try{
+         String query = "SELECT DISTINCT c.make, c.model, c.year FROM Car c JOIN Service_Request sr ON c.vin = sr.car_vin WHERE c.year < 1995 AND sr.odometer < 50000";
+         int rowCount = esql.executeQuery(query);
+         System.out.println("Total rows: " + rowCount);
+      }catch(Exception e){
+         System.err.println(e.getMessage());
+      }
    }//end ListCarsBefore1995Under50kMiles
 
    public static void ListTopKServiceOrders(MechanicShop esql){
