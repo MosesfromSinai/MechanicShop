@@ -543,7 +543,13 @@ public class MechanicShop {
    }//end ListClosedRequestsUnder100
 
    public static void ListCustomersWithMoreThan20Cars(MechanicShop esql){
-      //TODO
+      try{
+         String query = "SELECT c.fname, c.lname FROM Customer c JOIN Car ca ON c.id = ca.customer_id GROUP BY c.id, c.fname, c.lname HAVING COUNT(ca.vin) > 20";
+         int rowCount = esql.executeQuery(query);
+         System.out.println("Total rows: " + rowCount);
+      }catch(Exception e){
+         System.err.println(e.getMessage());
+      }
    }//end ListCustomersWithMoreThan20Cars
 
    public static void ListCarsBefore1995Under50kMiles(MechanicShop esql){
