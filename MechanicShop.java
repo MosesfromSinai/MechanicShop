@@ -533,7 +533,13 @@ public class MechanicShop {
    }//end CloseServiceRequest
 
    public static void ListClosedRequestsUnder100(MechanicShop esql){
-      //TODO
+      try{
+         String query = "SELECT date, comment, bill FROM Service_Request WHERE close_date IS NOT NULL AND bill < 100";
+         int rowCount = esql.executeQuery(query);
+         System.out.println("Total rows: " + rowCount);
+      }catch (Exception e){
+         System.err.println(e.getMessage());
+      }
    }//end ListClosedRequestsUnder100
 
    public static void ListCustomersWithMoreThan20Cars(MechanicShop esql){
