@@ -167,7 +167,6 @@ public class MechanicShop {
          while(keepon) {
             System.out.println();
             System.out.println("MAIN MENU");
-            System.out.println("MAIN MENU");
             System.out.println("---------");
             System.out.println("1. Add Customer");
             System.out.println("2. Add Mechanic");
