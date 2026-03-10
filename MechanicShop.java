@@ -631,6 +631,11 @@ public class MechanicShop {
       System.out.print("Enter closing date (YYYY-MM-DD): ");
       String closeDate = in.readLine();
 
+      if(!isValidDate(closeDate)){
+         System.out.println("Error: Invalid date format. Use YYYY-MM-DD.");
+         return;
+      }
+
       //checking closing date is after request date
       String dateQuery = "SELECT \"date\" FROM Service_Request WHERE rid = " + rid;
       stmt = esql._connection.createStatement();
