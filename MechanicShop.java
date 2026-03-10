@@ -231,6 +231,23 @@ public class MechanicShop {
       return input;
    }//end readChoice
 
+   public static boolean isValidName(String name){
+      if(name.length() <= 0 || name.length() > 40) return false;
+      if(!name.matches("[a-zA-Z ]+")) return false;
+      return true;
+   }
+
+   public static boolean isValidPhone(String phone){
+      if(phone.length() <= 0 || phone.length() > 40) return false;
+      if(!phone.matches("[0-9\\-]+")) return false;
+      return true;
+   }
+
+   public static boolean isValidDate(String date){
+      if(!date.matches("\\d{4}-\\d{2}-\\d{2}")) return false;
+      return true;
+   }
+
    public static void AddCustomer(MechanicShop esql){
       try{
          String query = "SELECT MAX(id) FROM Customer";
@@ -250,6 +267,11 @@ public class MechanicShop {
             return;
          }
 
+         if(!isValidName(fname)){
+            System.out.println("Error: Invalid first name.");
+            return;
+         }
+
          System.out.print("\tEnter last name: ");
          String lname = in.readLine();
          if(lname.length() <= 0 || lname.length() > 40){
@@ -257,10 +279,20 @@ public class MechanicShop {
             return;
          }
 
+         if(!isValidName(lname)){
+            System.out.println("Error: Invalid last name.");
+            return;
+         }
+
          System.out.print("\tEnter phone number: ");
          String phone = in.readLine();
          if(phone.length() <= 0 || phone.length() > 40){
             System.out.println("Error: Phone number must be between 1 and 40 characters.");
+            return;
+         }
+
+         if(!isValidPhone(phone)){
+            System.out.println("Error: Invalid phone number.");
             return;
          }
 
@@ -299,12 +331,21 @@ public class MechanicShop {
          if(fname.length() <= 0 || fname.length() > 40){
             System.out.println("Error: First name must be between 1 and 40 characters.");
             return;
+
+         if(!isValidName(fname)){
+            System.out.println("Error: Invalid first name.");
+            return;
          }
 
          System.out.print("\tEnter last name: ");
          String lname = in.readLine();
          if(lname.length() <= 0 || lname.length() > 40){
             System.out.println("Error: Last name must be between 1 and 40 characters.");
+            return;
+         }
+
+         if(!isValidName(lname)){
+            System.out.println("Error: Invalid last name.");
             return;
          }
 
@@ -477,6 +518,11 @@ public class MechanicShop {
          int odometer = Integer.parseInt(in.readLine());
          if(odometer < 0){
             System.out.println("Odometer can't be negative.");
+            return;
+         }
+
+         if(!isValidDate(date)){
+            System.out.println("Invalid date format. Use YYYY-MM-DD.");
             return;
          }
 
