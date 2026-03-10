@@ -521,6 +521,11 @@ public class MechanicShop {
             return;
          }
 
+         if(!isValidDate(date)){
+            System.out.println("Invalid date format. Use YYYY-MM-DD.");
+            return;
+         }
+
          System.out.print("\tEnter complaint: ");
          String complain = in.readLine();
          if(complain.length() <= 0){
