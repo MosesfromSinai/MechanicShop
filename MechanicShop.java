@@ -594,7 +594,76 @@ public class MechanicShop {
    }//end InitiateServiceRequest
 
    public static void CloseServiceRequest(MechanicShop esql){
-      //TODO
+      try{
+         System.out.print("Enter service request number: ");      //getting and validating service request
+         int rid = Integer.parseInt(in.readLine());
+
+          // check if service request exists and is open
+         String checkQuery =
+      "SELECT rid FROM Service_Request WHERE rid = " + rid + " AND close_date IS NULL";
+         Statement stmt = esql._connection.createStatement();
+         ResultSet rs = stmt.executeQuery(checkQuery);
+      if (!rs.next()){
+         System.out.println("Error: Service request does not exist or is already closed.");
+         rs.close();
+         stmt.close();
+         return;
+      }
+      rs.close();
+      stmt.close();
+
+      System.out.print("Enter mechanic ID: ");
+      int mechanicId = Integer.parseInt(in.readLine());
+
+      //checking if mechanic exists
+      String mechQuery = "SELECT id FROM Mechanic WHERE id = " + mechanicId;
+      stmt = esql._connection.createStatement();
+      rs = stmt.executeQuery(mechQuery);
+      if (!rs.next()){
+         System.out.println("Error: Mechanic not found.");
+         rs.close();
+         stmt.close();
+         return;
+      }
+      rs.close();
+      stmt.close();
+
+      System.out.print("Enter closing date (YYYY-MM-DD): ");
+      String closeDate = in.readLine();
+
+      //checking closing date is after request date
+      String dateQuery = "SELECT \"date\" FROM Service_Request WHERE rid = " + rid;
+      stmt = esql._connection.createStatement();
+      rs = stmt.executeQuery(dateQuery);
+      rs.next();
+      String requestDate = rs.getString(1);
+      rs.close();
+      stmt.close();
+
+      if(closeDate.compareTo(requestDate) < 0){
+         System.out.println("Error: Closing date cannot be before the request date (" + requestDate.trim() + ").");
+         return;
+      }
+
+      System.out.print("Comment: ");
+      String comment = in.readLine();
+
+      System.out.print("Enter bill amount: ");
+      int bill = Integer.parseInt(in.readLine());
+      if (bill < 0){
+         System.out.println("Error: Bill cannot be negative.");
+      }
+
+      String updateQuery = "UPDATE Service_Request SET close_date = '" + closeDate + "', comment = '" + comment + "', bill = " + bill + " WHERE rid = " + rid;
+      esql.executeUpdate(updateQuery);
+      System.out.println("Service request " + rid + " successfully closed!");
+
+      }catch(NumberFormatException e){
+         System.out.println("Error: Please enter a valid number.");
+      }catch(Exception e){
+         System.err.println(e.getMessage());
+      }
+
    }//end CloseServiceRequest
 
    public static void ListClosedRequestsUnder100(MechanicShop esql){
