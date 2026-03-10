@@ -380,6 +380,11 @@ public class MechanicShop {
          return;
       }
 
+      if(!vin.matches("[a-zA-Z0-9]+")){
+         System.out.println("Error: VIN must contain only letters and numbers.");
+         return;
+      }
+
       String checkVin = "SELECT vin FROM Car WHERE vin = '" + vin + "'";
       Statement stmt = esql._connection.createStatement();
       ResultSet rs = stmt.executeQuery(checkVin);
