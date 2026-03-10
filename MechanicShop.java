@@ -109,7 +109,7 @@ public class MechanicShop {
       while (rs.next()){
          if(outputHeader){
             for(int i = 1; i <= numCol; i++){
-               System.out.print(rsmd.getColumnName(i) + "\t");
+               System.out.print(rsmd.getColumnName(i) + "\t\t");
             }
             System.out.println();
             outputHeader = false;
