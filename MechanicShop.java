@@ -732,7 +732,7 @@ public class MechanicShop {
       try {
          System.out.print("Enter value of k: ");
          String kInput = in.readLine();
-         int k = Integer.parseInt(kInput);                     //converts text input into actual number
+         int k = Integer.parseInt(kInput);                 
          if (k <= 0) {
             System.out.println("Error: k must be a positive number.");
             return;
@@ -744,10 +744,10 @@ public class MechanicShop {
             "WHERE sr.close_date IS NULL GROUP BY c.vin, c.make, c.model ORDER BY num_requests DESC LIMIT " + k;
          int rowCount = esql.executeQuery(query);
          System.out.println("Total rows: " + rowCount);
-      } catch(NumberFormatException e) {                                 //catches bad input like strings and throws error
+      } catch(NumberFormatException e) {                         
          System.out.println("Error: Please enter a valid integer.");
       } catch(Exception e) {
-         System.err.println(e.getMessage());                      //catches general errors
+         System.err.println(e.getMessage());                   
       }
    }//end ListTopKServiceOrders
 
@@ -766,5 +766,4 @@ public class MechanicShop {
          System.err.println(e.getMessage());
       }
    }//end ListCustomersByTotalBill
-
 }//end MechanicShop
