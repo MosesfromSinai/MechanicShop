@@ -267,10 +267,20 @@ public class MechanicShop {
             return;
          }
 
+         if(!isValidName(fname)){
+            System.out.println("Error: Invalid first name.");
+            return;
+         }
+
          System.out.print("\tEnter last name: ");
          String lname = in.readLine();
          if(lname.length() <= 0 || lname.length() > 40){
             System.out.println("Error: Last name must be between 1 and 40 characters.");
+            return;
+         }
+
+         if(!isValidName(lname)){
+            System.out.println("Error: Invalid last name.");
             return;
          }
 
@@ -281,8 +291,8 @@ public class MechanicShop {
             return;
          }
 
-         if(!phone.matches("[0-9\\-]+")){
-            System.out.println("Error: Phone number can only contain digits and dashes.");
+         if(!isValidPhone(phone)){
+            System.out.println("Error: Invalid phone number.");
             return;
          }
 
@@ -321,9 +331,9 @@ public class MechanicShop {
          if(fname.length() <= 0 || fname.length() > 40){
             System.out.println("Error: First name must be between 1 and 40 characters.");
             return;
-         }
-         if(!fname.matches("[a-zA-Z ]+")){
-            System.out.println("Error: First name can only contain letters.");
+
+         if(!isValidName(fname)){
+            System.out.println("Error: Invalid first name.");
             return;
          }
 
@@ -334,8 +344,8 @@ public class MechanicShop {
             return;
          }
 
-         if(!fname.matches("[a-zA-Z ]+")){
-            System.out.println("Error: First name can only contain letters.");
+         if(!isValidName(lname)){
+            System.out.println("Error: Invalid last name.");
             return;
          }
 
