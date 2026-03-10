@@ -108,12 +108,12 @@ public class MechanicShop {
       boolean outputHeader = true;
       while (rs.next()){
          if(outputHeader){
-            for(int i = 1; i <= numCol; i++){
-               System.out.print(rsmd.getColumnName(i) + "\t\t");
-            }
+         for(int i = 1; i <= numCol; i++){
+            System.out.printf("%-20s", rsmd.getColumnName(i));
+         }
             System.out.println();
             outputHeader = false;
-         }
+      }
          for (int i=1; i<=numCol; ++i)
             System.out.print(rs.getString(i).trim() + "\t"););
          System.out.println ();
