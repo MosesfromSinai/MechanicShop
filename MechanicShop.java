@@ -331,6 +331,7 @@ public class MechanicShop {
          if(fname.length() <= 0 || fname.length() > 40){
             System.out.println("Error: First name must be between 1 and 40 characters.");
             return;
+         }
 
          if(!isValidName(fname)){
             System.out.println("Error: Invalid first name.");
