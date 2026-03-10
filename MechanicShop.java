@@ -425,8 +425,8 @@ public class MechanicShop {
 
          // verify customer exists
          String checkQuery = "SELECT id FROM Customer WHERE id = " + customerId;
-         Statement stmt = esql._connection.createStatement();
-         ResultSet rs = stmt.executeQuery(checkQuery);
+         stmt = esql._connection.createStatement();
+         rs = stmt.executeQuery(checkQuery);
          if(!rs.next()){
             System.out.println("Error: Customer with ID " + customerId + " does not exist.");
             rs.close();
