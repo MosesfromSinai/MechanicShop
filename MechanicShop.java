@@ -414,11 +414,21 @@ public class MechanicShop {
             return;
          }
 
+         if(!make.matches("[a-zA-Z ]+")){
+         System.out.println("Error: Make must contain only letters.");
+         return;
+         }
+
          System.out.print("\tEnter model: ");
          String model = in.readLine();
          if(model.length() <= 0 || model.length() > 40){
             System.out.println("Error: Model must be between 1 and 40 characters.");
             return;
+         }
+
+         if(!model.matches("[a-zA-Z0-9 \\-]+")){
+         System.out.println("Error: Model must contain only letters, numbers, and hyphens.");
+         return;
          }
 
          System.out.print("\tEnter customer ID (owner): ");
