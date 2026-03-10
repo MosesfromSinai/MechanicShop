@@ -112,7 +112,8 @@ public class MechanicShop {
                System.out.printf("%-30s", rsmd.getColumnName(i));
             }
             System.out.println();
-            System.out.println("-".repeat(30 * numCol));
+            for(int j = 0; j < 30 * numCol; j++) System.out.print("-");
+            System.out.println();
             outputHeader = false;
          }
          for (int i=1; i<=numCol; ++i)
