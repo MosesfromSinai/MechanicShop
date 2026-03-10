@@ -652,6 +652,7 @@ public class MechanicShop {
       int bill = Integer.parseInt(in.readLine());
       if (bill < 0){
          System.out.println("Error: Bill cannot be negative.");
+         return;
       }
 
       String updateQuery = "UPDATE Service_Request SET close_date = '" + closeDate + "', comment = '" + comment + "', bill = " + bill + " WHERE rid = " + rid;
