@@ -115,11 +115,10 @@ public class MechanicShop {
             outputHeader = false;
       }
          for (int i=1; i<=numCol; ++i)
-            System.out.print(rs.getString(i).trim() + "\t"););
-         System.out.println ();
-         ++rowCount;
-      }//end while
-      stmt.close ();
+            System.out.printf("%-30s", rs.getString(i).trim());
+            System.out.println();
+      }
+         stmt.close ();
       return rowCount;
    }//end executeQuery
 
