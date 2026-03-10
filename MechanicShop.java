@@ -181,44 +181,21 @@ public class MechanicShop {
             System.out.println("10. List the first name, last name and total bill of customers in descending order of their total bill");
             System.out.println("11. < EXIT");
 
-            switch (readChoice()) {
-            case 1:
-               AddCustomer(esql);
-               break;
-            case 2:
-               AddMechanic(esql);
-               break;
-            case 3:
-               AddCar(esql);
-               break;
-            case 4:
-               InitiateServiceRequest(esql);
-               break;
-            case 5:
-               CloseServiceRequest(esql);
-               break;
-            case 6:
-               ListClosedRequestsUnder100(esql);
-               break;
-            case 7:
-               ListCustomersWithMoreThan20Cars(esql);
-               break;
-            case 8:
-               ListCarsBefore1995Under50kMiles(esql);
-               break;
-            case 9:
-               ListTopKServiceOrders(esql);
-               break;
-            case 10:
-               ListCustomersByTotalBill(esql);
-               break;
-            case 11:
-               keepon = false;
-               break;
-            default :
-               System.out.println("Unrecognized choice!");
-               break;
-            }//end switch
+            switch (readChoice()){
+      case 1: AddCustomer(esql); break;
+      case 2: AddMechanic(esql); break;
+      case 3: AddCar(esql); break;
+      case 4: InitiateServiceRequest(esql); break;
+      case 5: CloseServiceRequest(esql); break;
+      case 6: ListClosedRequestsUnder100(esql); break;
+      case 7: ListCustomersWithMoreThan20Cars(esql); break;
+      case 8: ListCarsBefore1995Under50kMiles(esql); break;
+      case 9: ListTopKServiceOrders(esql); break;
+      case 10: ListCustomersByTotalBill(esql); break;
+      case 11: keepon = false; break;
+      default : System.out.println("Unrecognized choice!"); break;
+   }//end switch
+
          }//end while
       } catch(Exception e) {
          System.err.println (e.getMessage ());
