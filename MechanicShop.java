@@ -231,6 +231,23 @@ public class MechanicShop {
       return input;
    }//end readChoice
 
+   public static boolean isValidName(String name){
+      if(name.length() <= 0 || name.length() > 40) return false;
+      if(!name.matches("[a-zA-Z ]+")) return false;
+      return true;
+   }
+
+   public static boolean isValidPhone(String phone){
+      if(phone.length() <= 0 || phone.length() > 40) return false;
+      if(!phone.matches("[0-9\\-]+")) return false;
+      return true;
+   }
+
+   public static boolean isValidDate(String date){
+      if(!date.matches("\\d{4}-\\d{2}-\\d{2}")) return false;
+      return true;
+   }
+
    public static void AddCustomer(MechanicShop esql){
       try{
          String query = "SELECT MAX(id) FROM Customer";
