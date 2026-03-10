@@ -264,6 +264,11 @@ public class MechanicShop {
             return;
          }
 
+         if(!phone.matches("[0-9\\-]+")){
+            System.out.println("Error: Phone number can only contain digits and dashes.");
+            return;
+         }
+
          System.out.print("\tEnter address: ");
          String address = in.readLine();
          if(address.length() <= 0 || address.length() > 40){
@@ -300,11 +305,20 @@ public class MechanicShop {
             System.out.println("Error: First name must be between 1 and 40 characters.");
             return;
          }
+         if(!fname.matches("[a-zA-Z ]+")){
+            System.out.println("Error: First name can only contain letters.");
+            return;
+         }
 
          System.out.print("\tEnter last name: ");
          String lname = in.readLine();
          if(lname.length() <= 0 || lname.length() > 40){
             System.out.println("Error: Last name must be between 1 and 40 characters.");
+            return;
+         }
+
+         if(!fname.matches("[a-zA-Z ]+")){
+            System.out.println("Error: First name can only contain letters.");
             return;
          }
 
