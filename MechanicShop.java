@@ -107,20 +107,22 @@ public class MechanicShop {
       // iterates through the result set and output them to standard out.
       boolean outputHeader = true;
       while (rs.next()){
-         if(outputHeader){
-         for(int i = 1; i <= numCol; i++){
-            System.out.printf("%-30s", rsmd.getColumnName(i));
-         }
-            System.out.println();
-            outputHeader = false;
+   if(outputHeader){
+      for(int i = 1; i <= numCol; i++){
+         System.out.printf("%-30s", rsmd.getColumnName(i));
       }
-         for (int i=1; i<=numCol; ++i)
-            System.out.printf("%-30s", rs.getString(i).trim());
-            System.out.println();
+         System.out.println();
+         System.out.println("-".repeat(30 * numCol));
+      outputHeader = false;
       }
-         stmt.close ();
-      return rowCount;
-   }//end executeQuery
+      for (int i=1; i<=numCol; ++i)
+         System.out.printf("%-30s", rs.getString(i).trim());
+         System.out.println();
+      ++rowCount;
+      }
+   stmt.close();
+   return rowCount;
+}
 
    /**
     * Method to close the physical connection if it is open.
