@@ -109,7 +109,7 @@ public class MechanicShop {
       while (rs.next()){
          if(outputHeader){
          for(int i = 1; i <= numCol; i++){
-            System.out.printf("%-20s", rsmd.getColumnName(i));
+            System.out.printf("%-30s", rsmd.getColumnName(i));
          }
             System.out.println();
             outputHeader = false;
