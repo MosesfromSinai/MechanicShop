@@ -576,7 +576,26 @@ public class MechanicShop {
    }//end ListCarsBefore1995Under50kMiles
 
    public static void ListTopKServiceOrders(MechanicShop esql){
-      //TODO
+      try{
+         System.out.print("Enter value of k: ");
+         String kInput = in.readLine();
+         int k = Integer.parseInt(kInput);                     //converts text input into actual number
+         if (k <= 0){
+            System.out.println("Error: k must be a positive number.");
+            return;
+         }
+
+         String query = 
+      "SELECT c.make, c.model, COUNT(sr.rid) AS num_requests " + 
+      "FROM Car c JOIN Service_Request sr ON c.vin = sr.car_vin " +
+      "WHERE sr.close_date IS NULL GROUP BY c.vin, c.make, c.model ORDER BY num_requests DESC LIMIT " + k;
+         int rowCount = esql.executeQuery(query);
+         System.out.println("Total rows: " + rowCount);
+      }catch(NumberFormatException e){                                  //catches bad input like strings and throws error   
+         System.out.println("Error: Please enter a valid integer.");
+      }catch(Exception e){
+         System.err.println(e.getMessage());                      //catches general errors
+      }
    }//end ListTopKServiceOrders
 
    public static void ListCustomersByTotalBill(MechanicShop esql){
