@@ -515,15 +515,15 @@ public class MechanicShop {
          System.out.print("\tEnter date (YYYY-MM-DD): ");
          String date = in.readLine();
 
+         if(!isValidDate(date)){
+            System.out.println("Invalid date format. Use YYYY-MM-DD.");
+            return;
+         }
+
          System.out.print("\tEnter odometer reading: ");
          int odometer = Integer.parseInt(in.readLine());
          if(odometer < 0){
             System.out.println("Odometer can't be negative.");
-            return;
-         }
-
-         if(!isValidDate(date)){
-            System.out.println("Invalid date format. Use YYYY-MM-DD.");
             return;
          }
 
