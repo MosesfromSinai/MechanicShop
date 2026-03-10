@@ -12,3 +12,9 @@ CREATE INDEX idx_sr_customer_id ON Service_Request(customer_id);
 
 -- index on Service_Request close_date to find open vs close date reqs
 CREATE INDEX idx_sr_close_date ON Service_Request(close_date);
+
+-- index on Service_Request bill for the under 100 query
+CREATE INDEX idx_sr_bill ON Service_Request(bill);
+
+-- index on Car year for the before 1995 query
+CREATE INDEX idx_car_year ON Car(year);
