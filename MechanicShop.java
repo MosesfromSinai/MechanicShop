@@ -372,13 +372,25 @@ public class MechanicShop {
    }//end AddMechanic
 
    public static void AddCar(MechanicShop esql){
-      try{
-         System.out.print("\tEnter VIN: ");
-         String vin = in.readLine();
-         if(vin.length() <= 0 || vin.length() > 40){
-            System.out.println("Error: VIN must be between 1 and 40 characters.");
-            return;
-         }
+   try{
+      System.out.print("\tEnter VIN: ");
+      String vin = in.readLine();
+      if(vin.length() <= 0 || vin.length() > 40){
+         System.out.println("Error: VIN must be between 1 and 40 characters.");
+         return;
+      }
+
+      String checkVin = "SELECT vin FROM Car WHERE vin = '" + vin + "'";
+      Statement stmt = esql._connection.createStatement();
+      ResultSet rs = stmt.executeQuery(checkVin);
+      if(rs.next()){
+         System.out.println("Error: A car with this VIN already exists.");
+         rs.close();
+         stmt.close();
+         return;
+      }
+      rs.close();
+      stmt.close();
 
          System.out.print("\tEnter year: ");
          String yearInput = in.readLine();
