@@ -547,7 +547,7 @@ public class MechanicShop {
 
    public static void ListCustomersWithMoreThan20Cars(MechanicShop esql){
       try{
-         String query = String query =
+         String query =
    "SELECT C.fname, C.lname " +
    "FROM Customer C, Car CA " +
    "WHERE C.id = CA.customer_id " +
@@ -562,7 +562,7 @@ public class MechanicShop {
 
    public static void ListCarsBefore1995Under50kMiles(MechanicShop esql){
       try{
-         String query = String query =
+         String query =
    "SELECT DISTINCT C.make, C.model, C.year " +
    "FROM Car C, Service_Request SR " +
    "WHERE C.vin = SR.car_vin " +
