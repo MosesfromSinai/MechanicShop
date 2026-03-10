@@ -165,6 +165,8 @@ public class MechanicShop {
 
          boolean keepon = true;
          while(keepon) {
+            System.out.println();
+            System.out.println("MAIN MENU");
             System.out.println("MAIN MENU");
             System.out.println("---------");
             System.out.println("1. Add Customer");
