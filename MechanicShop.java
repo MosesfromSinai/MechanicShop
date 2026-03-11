@@ -258,36 +258,36 @@ public class MechanicShop {
 
          System.out.print("\tEnter first name: ");
          String fname = in.readLine();
-         if(fname.length() <= 0 || fname.length() > 40) {
+         if(fname.length() <= 0 || fname.length() > 40) { // default character length from prof requirements
             System.out.println("Error: First name must be between 1 and 40 characters.");
             return;
          }
 
-         if(!isValidName(fname)) {
+         if(!isValidName(fname)) { // if anything but letters, calls to the function from earlier
             System.out.println("Error: Invalid first name.");
             return;
          }
 
          System.out.print("\tEnter last name: ");
          String lname = in.readLine();
-         if(lname.length() <= 0 || lname.length() > 40) {
+         if(lname.length() <= 0 || lname.length() > 40) { // default character length from prof requirements
             System.out.println("Error: Last name must be between 1 and 40 characters.");
             return;
          }
 
-         if(!isValidName(lname)) {
+         if(!isValidName(lname)) { // if anything but letters, calls to the function from earlier
             System.out.println("Error: Invalid last name.");
             return;
          }
 
          System.out.print("\tEnter phone number: ");
          String phone = in.readLine();
-         if(phone.length() <= 0 || phone.length() > 40) {
+         if(phone.length() <= 0 || phone.length() > 40) { // default character length from prof requirements
             System.out.println("Error: Phone number must be between 1 and 40 characters.");
             return;
          }
 
-         if(!isValidPhone(phone)) {
+         if(!isValidPhone(phone)) { // calls to function from beginning, no letters
             System.out.println("Error: Invalid phone number.");
             return;
          }
