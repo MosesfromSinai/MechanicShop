@@ -1,4 +1,4 @@
-/* Mechanic Shop
+/* Mechanic Shop (Template from Professor Mariam's Lab 6)
  *
  * Database Management Systems
  * Department of Computer Science & Engineering
