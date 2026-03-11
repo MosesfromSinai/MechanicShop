@@ -408,7 +408,7 @@ public class MechanicShop {
             return;
          }
 
-         if(!make.matches("[a-zA-Z ]+")) { 
+         if(!make.matches("[a-zA-Z ]+")) {  // no special characters or anything weird for car makes
             System.out.println("Error: Make must contain only letters.");
             return;
          }
@@ -420,7 +420,7 @@ public class MechanicShop {
             return;
          }
 
-         if(!model.matches("[a-zA-Z0-9 \\-]+")) {
+         if(!model.matches("[a-zA-Z0-9 \\-]+")) { // no special characters but can include hyphens for random car models that have hyphens
             System.out.println("Error: Model must contain only letters, numbers, and hyphens.");
             return;
          }
@@ -478,14 +478,14 @@ public class MechanicShop {
 
          if(count == 0) {
             System.out.println("No customer found with last name: " + lname);
-            System.out.print("\tWould you like to add a new customer? (y/n): ");
+            System.out.print("\tWould you like to add a new customer? (y/n): "); // option to add new customer if no customer with name exists
             String choice = in.readLine();
             if(choice.equalsIgnoreCase("y")) {
                AddCustomer(esql);
             }
             return;
          } else {
-            System.out.print("\tEnter the customer ID from above: ");
+            System.out.print("\tEnter the customer ID from above: "); // output shows customer ID so you can reference
             customerId = Integer.parseInt(in.readLine());
 
             // verify the ID is valid
@@ -519,7 +519,7 @@ public class MechanicShop {
 
          if(carCount == 0) {
             System.out.println("No cars found for this customer.");
-            System.out.print("\tWould you like to add a new car? (y/n): ");
+            System.out.print("\tWould you like to add a new car? (y/n): "); // gives option to add new car
             String choice = in.readLine();
             if(choice.equalsIgnoreCase("y")) {
                AddCar(esql);
@@ -539,7 +539,7 @@ public class MechanicShop {
          String date = in.readLine();
 
          if(!isValidDate(date)) {
-            System.out.println("Invalid date format. Use YYYY-MM-DD.");
+            System.out.println("Invalid date format. Use YYYY-MM-DD."); // ensures only valid dates are entered
             return;
          }
 
