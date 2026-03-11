@@ -600,7 +600,7 @@ public class MechanicShop {
 
    public static void CloseServiceRequest(MechanicShop esql) {
       try {
-         System.out.print("Enter service request number: ");      //getting and validating service request
+         System.out.print("Enter service request number: "); // getting and validating service request
          int rid = Integer.parseInt(in.readLine());
 
          // check if service request exists and is open
