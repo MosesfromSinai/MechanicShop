@@ -16,7 +16,6 @@ import java.io.InputStreamReader;
 /**
  * This class defines a simple embedded SQL utility class that is designed to
  * work with PostgreSQL JDBC drivers.
- *
  */
 public class MechanicShop {
 
@@ -159,7 +158,7 @@ public class MechanicShop {
          esql = new MechanicShop (dbname, dbport, user, "");
 
          boolean keepon = true;
-         while(keepon) {
+         while(keepon) { // menu output for MechanicShop
             System.out.println();
             System.out.println("MAIN MENU");
             System.out.println("---------");
@@ -175,7 +174,7 @@ public class MechanicShop {
             System.out.println("10. List the first name, last name and total bill of customers in descending order of their total bill");
             System.out.println("11. < EXIT");
 
-            switch (readChoice()){
+            switch (readChoice()){ // switch options for shop menu output
       case 1: AddCustomer(esql); break;
       case 2: AddMechanic(esql); break;
       case 3: AddCar(esql); break;
