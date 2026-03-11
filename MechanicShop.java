@@ -294,7 +294,7 @@ public class MechanicShop {
 
          System.out.print("\tEnter address: ");
          String address = in.readLine();
-         if(address.length() <= 0 || address.length() > 40) {
+         if(address.length() <= 0 || address.length() > 40) { // default character length from prof requirements
             System.out.println("Error: Address must be between 1 and 40 characters.");
             return;
          }
@@ -324,24 +324,24 @@ public class MechanicShop {
 
          System.out.print("\tEnter first name: ");
          String fname = in.readLine();
-         if(fname.length() <= 0 || fname.length() > 40) {
+         if(fname.length() <= 0 || fname.length() > 40) { // default character length from prof requirements
             System.out.println("Error: First name must be between 1 and 40 characters.");
             return;
          }
 
-         if(!isValidName(fname)) {
+         if(!isValidName(fname)) { // calling to invalid naming function 
             System.out.println("Error: Invalid first name.");
             return;
          }
 
          System.out.print("\tEnter last name: ");
          String lname = in.readLine();
-         if(lname.length() <= 0 || lname.length() > 40) {
+         if(lname.length() <= 0 || lname.length() > 40) { // default character length from prof requirements
             System.out.println("Error: Last name must be between 1 and 40 characters.");
             return;
          }
 
-         if(!isValidName(lname)) {
+         if(!isValidName(lname)) { // calling to invalid naming function 
             System.out.println("Error: Invalid last name.");
             return;
          }
@@ -371,12 +371,12 @@ public class MechanicShop {
       try {
          System.out.print("\tEnter VIN: ");
          String vin = in.readLine();
-         if(vin.length() <= 0 || vin.length() > 40) {
+         if(vin.length() <= 0 || vin.length() > 40) { // default character length from prof requirements
             System.out.println("Error: VIN must be between 1 and 40 characters.");
             return;
          }
 
-         if(!vin.matches("[a-zA-Z0-9]+")) {
+         if(!vin.matches("[a-zA-Z0-9]+")) { // makes sure vin doesnt have special characters
             System.out.println("Error: VIN must contain only letters and numbers.");
             return;
          }
@@ -403,19 +403,19 @@ public class MechanicShop {
 
          System.out.print("\tEnter make: ");
          String make = in.readLine();
-         if(make.length() <= 0 || make.length() > 40) {
+         if(make.length() <= 0 || make.length() > 40) { // default character length from prof requirements
             System.out.println("Error: Make must be between 1 and 40 characters.");
             return;
          }
 
-         if(!make.matches("[a-zA-Z ]+")) {
+         if(!make.matches("[a-zA-Z ]+")) { 
             System.out.println("Error: Make must contain only letters.");
             return;
          }
 
          System.out.print("\tEnter model: ");
          String model = in.readLine();
-         if(model.length() <= 0 || model.length() > 40) {
+         if(model.length() <= 0 || model.length() > 40) { // default character length from prof requirements
             System.out.println("Error: Model must be between 1 and 40 characters.");
             return;
          }
