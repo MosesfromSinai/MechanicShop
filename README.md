@@ -22,7 +22,7 @@ This project implements a database for a mechanics shop that tracks customers, c
 
 ## Setup
 1. Create the PostgreSQL database
-2. Run `create_tables.sql` to build the schema
+2. Run `create-tables.sql` to build the schema
 3. Load dummy data from CSV files
 4. Compile and run the Java client:
    ```bash
