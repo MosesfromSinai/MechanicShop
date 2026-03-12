@@ -36,6 +36,4 @@ This project implements a database for a mechanics shop that tracks customers, c
 - Query service history, billing, and car information
 
 ## Authors
-Moses Avila
-
-Adolfo Magallanes
+Moses Avila & Adolfo Magallanes
