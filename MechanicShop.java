@@ -251,6 +251,8 @@ public class MechanicShop {
         return input;
     }//end readChoice
 
+    // helper functions to assist in edge case tests 
+    // lets us reference in functions so we can validate the input
     public static boolean isValidName(String name) {
         if(name.length() <= 0 || name.length() > 40) return false;
         if(!name.matches("[a-zA-Z ]+")) return false;
