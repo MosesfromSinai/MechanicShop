@@ -773,13 +773,8 @@ public class MechanicShop {
                 return;
             }
 
-            //JOIN Car with Service_Request to link cars to their requests
-            //WHERE close_date IS NULL filters for only open (unclosed) requests
-            //GROUP BY groups requests per car so COUNT can tally them
-            //ORDER BY DESC puts the cars with the most requests first
-            //LIMIT k restricts output to only the top k results
             String query =
-                "SELECT c.make, c.model, COUNT(sr.rid) AS num_requests " +
+                "SELECT c.make, c.model, COUNT(sr.rid) AS num_requests " + // JOIN Car with Service_Request to link cars to their requests
                 "FROM Car c JOIN Service_Request sr ON c.vin = sr.car_vin " +
                 "WHERE sr.close_date IS NULL GROUP BY c.vin, c.make, c.model ORDER BY num_requests DESC LIMIT " + k;
             int rowCount = esql.executeQuery(query);
@@ -793,21 +788,17 @@ public class MechanicShop {
 
     public static void ListCustomersByTotalBill(MechanicShop esql) {
         try {
-            //JOIN Customer with Service_Request to link customers to their repairs
-            //Filter out NULL bills (open requests that haven't been closed yet)
-            //GROUP BY groups all service requests under each customer so SUM can add their bills 
-            //ORDER BY DESC puts the highest spending customers first
             String query =
                 "SELECT C.fname, C.lname, SUM(SR.bill) AS total_bill " +
                 "FROM Customer C, Service_Request SR " +
                 "WHERE C.id = SR.customer_id " +
-                "AND SR.bill IS NOT NULL " +
-                "GROUP BY C.id, C.fname, C.lname " +
-                "ORDER BY total_bill DESC";
+                "AND SR.bill IS NOT NULL " + // Filter out NULL bills (open requests that haven't been closed yet)
+                "GROUP BY C.id, C.fname, C.lname " + //GROUP BY groups all service requests under each customer so SUM can add their bills 
+                "ORDER BY total_bill DESC"; // ORDER BY DESC puts the highest spending customers first
             int rowCount = esql.executeQuery(query);
             System.out.println("Total rows: " + rowCount);
         } catch(Exception e) {
             System.err.println(e.getMessage());
         }
-    }//end ListCustomersByTotalBill
-}//end MechanicShop
+    }
+}
