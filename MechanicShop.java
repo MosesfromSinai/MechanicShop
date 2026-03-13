@@ -651,7 +651,7 @@ public class MechanicShop {
             System.out.print("Enter mechanic ID: ");
             int mechanicId = Integer.parseInt(in.readLine());
 
-            //checking if mechanic exists in the database before continuing 
+            //checking if mechanic exists in the database before continuing
             String mechQuery = "SELECT id FROM Mechanic WHERE id = " + mechanicId;
             stmt = esql._connection.createStatement();
             rs = stmt.executeQuery(mechQuery);
@@ -716,7 +716,7 @@ public class MechanicShop {
         try {
             //SELECT date, comment, and bill as required by the instructions
             //close_date IS NOT NULL means the request has not be closed by a mechanic
-            //bill < 100 filters for only the cheaper repairs 
+            //bill < 100 filters for only the cheaper repairs
             String query =
                 "SELECT date, comment, bill " +
                 "FROM Service_Request " +
@@ -793,7 +793,7 @@ public class MechanicShop {
                 "FROM Customer C, Service_Request SR " +
                 "WHERE C.id = SR.customer_id " +
                 "AND SR.bill IS NOT NULL " + // Filter out NULL bills (open requests that haven't been closed yet)
-                "GROUP BY C.id, C.fname, C.lname " + //GROUP BY groups all service requests under each customer so SUM can add their bills 
+                "GROUP BY C.id, C.fname, C.lname " + //GROUP BY groups all service requests under each customer so SUM can add their bills
                 "ORDER BY total_bill DESC"; // ORDER BY DESC puts the highest spending customers first
             int rowCount = esql.executeQuery(query);
             System.out.println("Total rows: " + rowCount);
