@@ -251,7 +251,7 @@ public class MechanicShop {
         return input;
     }//end readChoice
 
-    // helper functions to assist in edge case tests 
+    // helper functions to assist in edge case tests
     // lets us reference in functions so we can validate the input
     public static boolean isValidName(String name) {
         if(name.length() <= 0 || name.length() > 40) return false;
@@ -410,7 +410,7 @@ public class MechanicShop {
                 return;
             }
 
-            String checkVin = "SELECT vin FROM Car WHERE vin = '" + vin + "'"; // ensuring the vin entered does not exist 
+            String checkVin = "SELECT vin FROM Car WHERE vin = '" + vin + "'"; // ensuring the vin entered does not exist
             Statement stmt = esql._connection.createStatement();
             ResultSet rs = stmt.executeQuery(checkVin);
             if(rs.next()) {
@@ -497,7 +497,7 @@ public class MechanicShop {
 
             // print matches and count them
             int count = 0;
-            while(rs.next()) { 
+            while(rs.next()) {
                 System.out.println("\tID: " + rs.getInt(1) + " | " + rs.getString(2).trim() + " " + rs.getString(3).trim() + " | Phone: " + rs.getString(4).trim());
                 count++;
             }
