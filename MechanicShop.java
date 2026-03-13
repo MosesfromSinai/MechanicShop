@@ -630,10 +630,11 @@ public class MechanicShop {
 
     public static void CloseServiceRequest(MechanicShop esql) {
         try {
-            System.out.print("Enter service request number: "); // getting and validating service request
+            System.out.print("Enter service request number: "); //getting and validating service request
             int rid = Integer.parseInt(in.readLine());
 
-            // check if service request exists and is open
+            //check if service request exists and is open
+            //if it doesn't exist or is already closed stop and return to menu
             String checkQuery =
                 "SELECT rid FROM Service_Request WHERE rid = " + rid + " AND close_date IS NULL";
             Statement stmt = esql._connection.createStatement();
@@ -650,7 +651,7 @@ public class MechanicShop {
             System.out.print("Enter mechanic ID: ");
             int mechanicId = Integer.parseInt(in.readLine());
 
-            //checking if mechanic exists
+            //checking if mechanic exists in the database before continuing 
             String mechQuery = "SELECT id FROM Mechanic WHERE id = " + mechanicId;
             stmt = esql._connection.createStatement();
             rs = stmt.executeQuery(mechQuery);
@@ -666,12 +667,13 @@ public class MechanicShop {
             System.out.print("Enter closing date (YYYY-MM-DD): ");
             String closeDate = in.readLine();
 
+            //check to see if date format is valid
             if(!isValidDate(closeDate)) {
                 System.out.println("Error: Invalid date format. Use YYYY-MM-DD.");
                 return;
             }
 
-            //checking closing date is after request date
+            //checking closing date is after request date, a service request cannot be closed before it is opened
             String dateQuery = "SELECT \"date\" FROM Service_Request WHERE rid = " + rid;
             stmt = esql._connection.createStatement();
             rs = stmt.executeQuery(dateQuery);
@@ -690,16 +692,19 @@ public class MechanicShop {
 
             System.out.print("Enter bill amount: ");
             int bill = Integer.parseInt(in.readLine());
+
+            //bill cannot be negative
             if (bill < 0) {
                 System.out.println("Error: Bill cannot be negative.");
                 return;
             }
 
+            //UPDATE sets the three previously NULL fields (close_date, comment, bill)
             String updateQuery = "UPDATE Service_Request SET close_date = '" + closeDate + "', comment = '" + comment + "', bill = " + bill + " WHERE rid = " + rid;
             esql.executeUpdate(updateQuery);
             System.out.println("Service request " + rid + " successfully closed!");
 
-        } catch(NumberFormatException e) {
+        } catch(NumberFormatException e) {                                 //catches invalid input
             System.out.println("Error: Please enter a valid number.");
         } catch(Exception e) {
             System.err.println(e.getMessage());
@@ -709,6 +714,9 @@ public class MechanicShop {
 
     public static void ListClosedRequestsUnder100(MechanicShop esql) {
         try {
+            //SELECT date, comment, and bill as required by the instructions
+            //close_date IS NOT NULL means the request has not be closed by a mechanic
+            //bill < 100 filters for only the cheaper repairs 
             String query =
                 "SELECT date, comment, bill " +
                 "FROM Service_Request " +
@@ -722,6 +730,9 @@ public class MechanicShop {
 
     public static void ListCustomersWithMoreThan20Cars(MechanicShop esql) {
         try {
+            //JOIN Customer with Car using the ownership foreign key
+            //GROUP BY groups all cars under each customer so COUNT can tally them
+            //HAVING filters groups after counting, only keeping customers with more than 20 cars
             String query =
                 "SELECT C.fname, C.lname " +
                 "FROM Customer C, Car CA " +
@@ -737,6 +748,9 @@ public class MechanicShop {
 
     public static void ListCarsBefore1995Under50kMiles(MechanicShop esql) {
         try {
+            //DISTINCT prevents duplicate rows if a car has multiple service requests
+            //JOIN Car with Service_Request to access odometer reading
+            //Filter for cars built before 1995 and with odometer under 50,000 miles
             String query =
                 "SELECT DISTINCT C.make, C.model, C.year " +
                 "FROM Car C, Service_Request SR " +
@@ -752,21 +766,29 @@ public class MechanicShop {
 
     public static void ListTopKServiceOrders(MechanicShop esql) {
         try {
+            //ask user for k value
             System.out.print("Enter value of k: ");
             String kInput = in.readLine();
             int k = Integer.parseInt(kInput);
+
+            //check if k is positive and valid
             if (k <= 0) {
                 System.out.println("Error: k must be a positive number.");
                 return;
             }
 
+            //JOIN Car with Service_Request to link cars to their requests
+            //WHERE close_date IS NULL filters for only open (unclosed) requests
+            //GROUP BY groups requests per car so COUNT can tally them
+            //ORDER BY DESC puts the cars with the most requests first
+            //LIMIT k restricts output to only the top k results
             String query =
                 "SELECT c.make, c.model, COUNT(sr.rid) AS num_requests " +
                 "FROM Car c JOIN Service_Request sr ON c.vin = sr.car_vin " +
                 "WHERE sr.close_date IS NULL GROUP BY c.vin, c.make, c.model ORDER BY num_requests DESC LIMIT " + k;
             int rowCount = esql.executeQuery(query);
             System.out.println("Total rows: " + rowCount);
-        } catch(NumberFormatException e) {
+        } catch(NumberFormatException e) {                                    //catches invalid input
             System.out.println("Error: Please enter a valid integer.");
         } catch(Exception e) {
             System.err.println(e.getMessage());
@@ -775,6 +797,10 @@ public class MechanicShop {
 
     public static void ListCustomersByTotalBill(MechanicShop esql) {
         try {
+            //JOIN Customer with Service_Request to link customers to their repairs
+            //Filter out NULL bills (open requests that haven't been closed yet)
+            //GROUP BY groups all service requests under each customer so SUM can add their bills 
+            //ORDER BY DESC puts the highest spending customers first
             String query =
                 "SELECT C.fname, C.lname, SUM(SR.bill) AS total_bill " +
                 "FROM Customer C, Service_Request SR " +
