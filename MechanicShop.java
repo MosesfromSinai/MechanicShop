@@ -270,6 +270,7 @@ public class MechanicShop {
         return true;
     }
 
+    // adds a new customer with an auto-generated ID so theres a new ID for every customer
     public static void AddCustomer(MechanicShop esql) {
         try {
             String query = "SELECT MAX(id) FROM Customer";
