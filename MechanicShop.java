@@ -699,7 +699,7 @@ public class MechanicShop {
                 return;
             }
 
-            //UPDATE sets the three previously NULL fields (close_date, comment, bill)
+            // sets the three previously NULL fields (close_date, comment, bill)
             String updateQuery = "UPDATE Service_Request SET close_date = '" + closeDate + "', comment = '" + comment + "', bill = " + bill + " WHERE rid = " + rid;
             esql.executeUpdate(updateQuery);
             System.out.println("Service request " + rid + " successfully closed!");
@@ -744,30 +744,26 @@ public class MechanicShop {
         } catch(Exception e) {
             System.err.println(e.getMessage());
         }
-    }//end ListCustomersWithMoreThan20Cars
+    }
 
     public static void ListCarsBefore1995Under50kMiles(MechanicShop esql) {
         try {
-            //DISTINCT prevents duplicate rows if a car has multiple service requests
-            //JOIN Car with Service_Request to access odometer reading
-            //Filter for cars built before 1995 and with odometer under 50,000 miles
             String query =
-                "SELECT DISTINCT C.make, C.model, C.year " +
-                "FROM Car C, Service_Request SR " +
+                "SELECT DISTINCT C.make, C.model, C.year " + // prevents duplicate rows if a car has multiple service requests
+                "FROM Car C, Service_Request SR " + // Car with Service_Request to access odometer reading
                 "WHERE C.vin = SR.car_vin " +
                 "AND C.year < 1995 " +
-                "AND SR.odometer < 50000";
+                "AND SR.odometer < 50000"; //Filter for cars built before 1995 and with odometer under 50,000 miles
             int rowCount = esql.executeQuery(query);
             System.out.println("Total rows: " + rowCount);
         } catch(Exception e) {
             System.err.println(e.getMessage());
         }
-    }//end ListCarsBefore1995Under50kMiles
+    }
 
     public static void ListTopKServiceOrders(MechanicShop esql) {
         try {
-            //ask user for k value
-            System.out.print("Enter value of k: ");
+            System.out.print("Enter value of k: "); // ask user for value
             String kInput = in.readLine();
             int k = Integer.parseInt(kInput);
 
