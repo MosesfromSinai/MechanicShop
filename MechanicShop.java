@@ -484,6 +484,7 @@ public class MechanicShop {
         }
     }//end AddCar
 
+    // creates a new service request by looking up customers last name
     public static void InitiateServiceRequest(MechanicShop esql) {
         try {
             System.out.print("\tEnter customer last name: ");
@@ -496,7 +497,7 @@ public class MechanicShop {
 
             // print matches and count them
             int count = 0;
-            while(rs.next()) {
+            while(rs.next()) { 
                 System.out.println("\tID: " + rs.getInt(1) + " | " + rs.getString(2).trim() + " " + rs.getString(3).trim() + " | Phone: " + rs.getString(4).trim());
                 count++;
             }
@@ -555,7 +556,7 @@ public class MechanicShop {
                 }
                 return;
             } else {
-                System.out.print("\tEnter the VIN from above (or 'new' to add a car): ");
+                System.out.print("\tEnter the VIN from above (or 'new' to add a car): "); // adds vin so you can reference
                 String vinInput = in.readLine();
                 if(vinInput.equalsIgnoreCase("new")) {
                     AddCar(esql);
@@ -575,13 +576,13 @@ public class MechanicShop {
             System.out.print("\tEnter odometer reading: ");
             int odometer = Integer.parseInt(in.readLine());
             if(odometer < 0) {
-                System.out.println("Odometer can't be negative.");
+                System.out.println("Odometer can't be negative."); // check for mileage odometer and ensures its not negative
                 return;
             }
 
             System.out.print("\tEnter complaint: ");
             String complain = in.readLine();
-            if(complain.length() <= 0) {
+            if(complain.length() <= 0) { // ensures that complaint for service req is not empty
                 System.out.println("Complaint cannot be empty.");
                 return;
             }
