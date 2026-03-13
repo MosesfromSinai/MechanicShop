@@ -272,7 +272,7 @@ public class MechanicShop {
 
     // adds a new customer with an auto-generated ID so theres a new ID for every customer
     public static void AddCustomer(MechanicShop esql) {
-        try {
+        try { // gets next available customer ID
             String query = "SELECT MAX(id) FROM Customer";
             Statement stmt = esql._connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
