@@ -395,6 +395,7 @@ public class MechanicShop {
         }
     }//end AddMechanic
 
+    // adds a new car that can be linked to a customer via unique customer ID and validates for no duplicate VIN
     public static void AddCar(MechanicShop esql) {
         try {
             System.out.print("\tEnter VIN: ");
@@ -409,7 +410,7 @@ public class MechanicShop {
                 return;
             }
 
-            String checkVin = "SELECT vin FROM Car WHERE vin = '" + vin + "'";
+            String checkVin = "SELECT vin FROM Car WHERE vin = '" + vin + "'"; // ensuring the vin entered does not exist 
             Statement stmt = esql._connection.createStatement();
             ResultSet rs = stmt.executeQuery(checkVin);
             if(rs.next()) {
@@ -457,7 +458,7 @@ public class MechanicShop {
             String custInput = in.readLine();
             int customerId = Integer.parseInt(custInput);
 
-            // verify customer exists
+            // validation to ensure that the customer exists
             String checkQuery = "SELECT id FROM Customer WHERE id = " + customerId;
             stmt = esql._connection.createStatement();
             rs = stmt.executeQuery(checkQuery);
