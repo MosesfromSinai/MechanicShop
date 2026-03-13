@@ -337,8 +337,9 @@ public class MechanicShop {
         }
     }//end AddCustomer
 
+    // generates a new mechanic ID and validates names and experience
     public static void AddMechanic(MechanicShop esql) {
-        try {
+        try { // gets next mechanic ID
             String query = "SELECT MAX(id) FROM Mechanic";
             Statement stmt = esql._connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
